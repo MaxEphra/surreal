@@ -8,7 +8,7 @@
     <!-- FAVICON -->
     <link rel="icon" type="image/png" href="./surreallogo.png">
     
-        <!-- OPEN GRAPH / REDES SOCIAIS -->
+    <!-- OPEN GRAPH / REDES SOCIAIS -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://maxephra.github.io/surreal/">
     <meta property="og:title" content="Surreal | Premium Estética Automotiva">
@@ -313,6 +313,9 @@
             position: relative;
             overflow: hidden;
             transform-style: preserve-3d;
+            cursor: pointer; /* Ajuda no mobile */
+            -webkit-tap-highlight-color: transparent; /* Remove o flash azul no mobile */
+            touch-action: manipulation; /* Melhora resposta ao toque */
         }
 
         .service-card::before {
@@ -396,10 +399,16 @@
             box-shadow: 0 5px 15px rgba(0, 170, 255, 0.4);
         }
 
-        /* ANIMAÇÃO EXTRA PARA MOBILE (ÍCONES FLUTUANDO) */
+        /* ANIMAÇÃO EXTRA PARA MOBILE */
         @keyframes floatIcon {
             0% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes floatCard {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
             100% { transform: translateY(0px); }
         }
 
@@ -616,7 +625,18 @@
                 transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
             }
 
-            /* ANIMAÇÃO MOBILE */
+            /* ANIMAÇÃO CONTÍNUA NO MOBILE */
+            .service-card.active {
+                animation: floatCard 4s ease-in-out infinite;
+            }
+
+            /* Delay para os cards não flutuarem todos juntos */
+            .service-card:nth-child(1).active { animation-delay: 0s; }
+            .service-card:nth-child(2).active { animation-delay: 0.5s; }
+            .service-card:nth-child(3).active { animation-delay: 1s; }
+            .service-card:nth-child(4).active { animation-delay: 1.5s; }
+            .service-card:nth-child(5).active { animation-delay: 2s; }
+
             .service-icon {
                 animation: floatIcon 3s ease-in-out infinite; /* Ícone flutuando */
                 transform: translateZ(0); /* Reseta o 3D */
@@ -624,9 +644,10 @@
 
             /* EFEITO DE TOQUE (ACTIVE) */
             .service-card:active {
-                transform: scale(0.97) translateY(-5px);
-                border-color: rgba(0, 170, 255, 0.8);
-                box-shadow: 0 0 30px rgba(0, 170, 255, 0.3);
+                transform: scale(0.95) !important;
+                border-color: rgba(0, 170, 255, 0.8) !important;
+                box-shadow: 0 0 30px rgba(0, 170, 255, 0.3) !important;
+                animation-play-state: paused; /* Pausa a flutuação ao tocar */
             }
 
             .service-card:active .service-icon {
@@ -664,7 +685,7 @@
             <a href="#servicos">Serviços</a>
             <a href="#adicionais">Adicionais</a>
             <a href="#contato">Contato</a>
-            <a href="https://wa.me/5513981676990?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20servi%C3%A7o%20na%20Surreal!" class="btn-header" target="_blank" rel="noopener noreferrer">Agendar</a>
+            <a href="https://wa.me/5511954937366?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20servi%C3%A7o%20na%20Surreal!" class="btn-header" target="_blank" rel="noopener noreferrer">Agendar</a>
         </nav>
     </header>
 
@@ -677,17 +698,16 @@
         <div class="hero-content reveal">
             <h1>A excelência que seu <span>veículo</span> merece.</h1>
             <p>Transforme a aparência do seu carro com o cuidado premium da Surreal. Tecnologia, produtos de alta performance e atenção aos mínimos detalhes.</p>
-            <a href="https://wa.me/5513981676990?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20Premium!" class="btn-cta" target="_blank" rel="noopener noreferrer">Agende sua Avaliação</a>
+            <a href="https://wa.me/5511954937366?text=Ol%C3%A1%2C%20gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20Premium!" class="btn-cta" target="_blank" rel="noopener noreferrer">Agende sua Avaliação</a>
         </div>
     </section>
 
-    <!-- BANNER COM CDN (RESOLVE O PROBLEMA DE CACHE) -->
+    <!-- BANNER COM CDN -->
     <section class="banner-section">
-        <!-- Usando jsDelivr para carregar a imagem do seu GitHub sem falhas -->
-        <img src="https://cdn.jsdelivr.net/gh/maxephra/surreal@main/destaque-surreal.png" alt="Surreal Premium Estética Automotiva" loading="eager">
+        <img src="./destaque-surreal.png" alt="Surreal Premium Estética Automotiva" loading="eager">
     </section>
 
-    <!-- SERVIÇOS PRINCIPAIS (DESIGN 3D) -->
+    <!-- SERVIÇOS PRINCIPAIS -->
     <section class="services-section" id="servicos">
         <h2 class="section-title reveal">Nossos Serviços</h2>
         <p class="section-subtitle reveal">Tratamento de alto nível para quem exige o melhor.</p>
@@ -698,7 +718,7 @@
                 <i class="fas fa-shower service-icon"></i>
                 <h3>Lavagem Especializada</h3>
                 <p>Lavagem técnica com produtos premium que preservam a pintura, removem impurezas e devolvem o brilho intenso ao seu veículo.</p>
-                <a href="https://wa.me/5513981676990?text=Gostaria%20de%20agendar%20uma%20Lavagem%20Especializada." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/5511954937366?text=Gostaria%20de%20agendar%20uma%20Lavagem%20Especializada." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- Serviço 2 -->
@@ -706,7 +726,7 @@
                 <i class="fas fa-couch service-icon"></i>
                 <h3>Higienização Interna</h3>
                 <p>Eliminação de ácaros, bactérias e odores. Cuidado profundo em bancos, tapetes e forrações, garantindo um ambiente renovado.</p>
-                <a href="https://wa.me/5513981676990?text=Gostaria%20de%20agendar%20uma%20Higieniza%C3%A7%C3%A3o%20Interna." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/5511954937366?text=Gostaria%20de%20agendar%20uma%20Higieniza%C3%A7%C3%A3o%20Interna." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- Serviço 3 -->
@@ -714,7 +734,7 @@
                 <i class="fas fa-cogs service-icon"></i>
                 <h3>Detalhamento de Motor</h3>
                 <p>Limpeza minuciosa e segura do motor, removendo sujeiras pesadas e aplicando proteção para valorizar seu veículo.</p>
-                <a href="https://wa.me/5513981676990?text=Gostaria%20de%20agendar%20o%20Detalhamento%20de%20Motor." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/5511954937366?text=Gostaria%20de%20agendar%20o%20Detalhamento%20de%20Motor." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- Serviço 4 -->
@@ -722,7 +742,7 @@
                 <i class="fas fa-gem service-icon"></i>
                 <h3>Polimento e Cristalização</h3>
                 <p>Correção de pintura para eliminar riscos leves e micro-riscos. A cristalização cria uma camada de proteção com brilho espelhado.</p>
-                <a href="https://wa.me/5513981676990?text=Gostaria%20de%20agendar%20Polimento%20e%20Cristaliza%C3%A7%C3%A3o." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/5511954937366?text=Gostaria%20de%20agendar%20Polimento%20e%20Cristaliza%C3%A7%C3%A3o." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
             </div>
 
             <!-- Serviço 5 -->
@@ -730,7 +750,7 @@
                 <i class="fas fa-shield-alt service-icon"></i>
                 <h3>Proteção de Pintura</h3>
                 <p>Aplicação de vitrificadores e ceras de alta durabilidade. Proteção máxima contra raios UV, sujeira e intempéries.</p>
-                <a href="https://wa.me/5513981676990?text=Gostaria%20de%20saber%20mais%20sobre%20Prote%C3%A7%C3%A3o%20de%20Pintura." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
+                <a href="https://wa.me/5511954937366?text=Gostaria%20de%20saber%20mais%20sobre%20Prote%C3%A7%C3%A3o%20de%20Pintura." class="btn-service" target="_blank" rel="noopener noreferrer">Agendar <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -768,15 +788,14 @@
             
             <div class="footer-col reveal" style="transition-delay: 0.1s;">
                 <h4>Contato & Localização</h4>
-                <p><a href="https://wa.me/5513981676990?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="margin-right: 8px; color: var(--azul-claro);"></i> (13) 98167-6990</a></p>
+                <p><a href="https://wa.me/5511954937366?text=Ol%C3%A1%2C%20gostaria%20de%20mais%20informa%C3%A7%C3%B5es." target="_blank" rel="noopener noreferrer"><i class="fab fa-whatsapp" style="margin-right: 8px; color: var(--azul-claro);"></i> (11) 95493-7366</a></p>
                 <p style="margin-top: 15px;"><a href="https://www.google.com/maps/search/?api=1&query=Rua+Pastor+Rubens+Lopes,+707,+S%C3%A3o+Paulo+-+SP,+04409-020" target="_blank" rel="noopener noreferrer"><i class="fas fa-map-marker-alt" style="margin-right: 8px; color: var(--azul-claro);"></i> Rua Pastor Rubens Lopes, 707<br>São Paulo - SP, CEP 04409-020</a></p>
             </div>
 
             <div class="footer-col reveal" style="transition-delay: 0.2s;">
                 <h4>Horário de Funcionamento</h4>
-                <p>Segunda a Sexta: 08:00 às 18:00<br>
-                Sábado: 08:00 às 13:00<br>
-                Domingo: Fechado</p>
+                <p>Segunda a Sábado: 09:00 às 17:00<br>
+                Domingo: Somente Agendamentos</p>
             </div>
         </div>
         <div class="footer-bottom">
@@ -785,7 +804,7 @@
     </footer>
 
     <!-- BOTÃO WHATSAPP FLUTUANTE -->
-    <a href="https://wa.me/5513981676990?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
+    <a href="https://wa.me/5511954937366?text=Ol%C3%A1%2C%20gostaria%20de%20agendar%20um%20hor%C3%A1rio!" class="whatsapp-btn" target="_blank" rel="noopener noreferrer">
         <i class="fab fa-whatsapp"></i>
     </a>
 
